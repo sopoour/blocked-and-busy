@@ -38,7 +38,7 @@ export default async function PostPage({
           
         </div>
         <div className="mb-8 md:mb-16 sm:mx-0">
-          <CoverImage title={post.title} url={post.picture?.url} />
+          <CoverImage title={post.title ?? ""} url={post.picture?.url ?? ""} />
         </div>
         <div className="max-w-2xl mx-auto">
           <div className="block md:hidden mb-6">
@@ -49,11 +49,11 @@ export default async function PostPage({
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto">
+        {post.mainContent && <div className="max-w-2xl mx-auto">
           <div className="prose">
             <Markdown content={post.mainContent} />
           </div>
-        </div>
+        </div>}
       </article>
       <hr className="border-accent-2 mt-28 mb-24" />
       <MoreStories morePosts={morePosts} />
