@@ -1,3 +1,4 @@
+import { NewsletterPost } from "@/app/services/graphql/types"
 
 const POST_GRAPHQL_FIELDS = `
   slug
@@ -39,15 +40,15 @@ async function fetchGraphQL(query: string): Promise<any> {
 }
 
 
-function extractPost(fetchResponse: any): any {
+function extractPost(fetchResponse: any): NewsletterPost {
   return fetchResponse?.data?.newsletterPostCollection?.items?.[0]
 }
 
-function extractPostEntries(fetchResponse: any): any[] {
+function extractPostEntries(fetchResponse: any): NewsletterPost[] {
   return fetchResponse.data?.newsletterPostCollection.items
 }
 
-export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
+export const getPreviewPostBySlug = async(slug: string | null): Promise<NewsletterPost> => {
   const entry = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug: "${slug}" }, limit: 1) {
@@ -61,7 +62,7 @@ export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
   return extractPost(entry)
 }
 
-export async function getAllPosts(): Promise<any[]> {
+export const getAllPosts = async (): Promise<NewsletterPost[]> => {
   const entries = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug_exists: true }, order: date_DESC, limit: 10) {
@@ -74,9 +75,9 @@ export async function getAllPosts(): Promise<any[]> {
   return extractPostEntries(entries)
 }
 
-export async function getPostAndMorePosts(
+export const getPostAndMorePosts = async(
   slug: string,
-): Promise<any> {
+): Promise<{post: NewsletterPost, morePosts: NewsletterPost[]}> => {
   const entry = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug: "${slug}" }, , limit: 1) {
