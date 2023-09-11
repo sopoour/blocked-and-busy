@@ -1,0 +1,7 @@
+overwrite: true
+schema: ${CONTENTFUL_GRAPHQL_ENDPOINT}
+generates:
+  ./app/services/graphql/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
