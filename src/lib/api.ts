@@ -1,4 +1,4 @@
-import { NewsletterPost } from "@/app/services/graphql/types"
+import { NewsletterPost } from '@app/src/services/graphql/types';
 
 const POST_GRAPHQL_FIELDS = `
   slug
@@ -23,7 +23,7 @@ const POST_GRAPHQL_FIELDS = `
       }
     }
   }
-`
+`;
 
 async function fetchGraphQL(query: string): Promise<any> {
   return fetch(
@@ -35,20 +35,19 @@ async function fetchGraphQL(query: string): Promise<any> {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify({ query }),
-    }
-  ).then((response) => response.json())
+    },
+  ).then((response) => response.json());
 }
 
-
 function extractPost(fetchResponse: any): NewsletterPost {
-  return fetchResponse?.data?.newsletterPostCollection?.items?.[0]
+  return fetchResponse?.data?.newsletterPostCollection?.items?.[0];
 }
 
 function extractPostEntries(fetchResponse: any): NewsletterPost[] {
-  return fetchResponse.data?.newsletterPostCollection.items
+  return fetchResponse.data?.newsletterPostCollection.items;
 }
 
-export const getPreviewPostBySlug = async(slug: string | null): Promise<NewsletterPost> => {
+export const getPreviewPostBySlug = async (slug: string | null): Promise<NewsletterPost> => {
   const entry = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug: "${slug}" }, limit: 1) {
@@ -57,10 +56,9 @@ export const getPreviewPostBySlug = async(slug: string | null): Promise<Newslett
         }
       }
     }`,
-
-  )
-  return extractPost(entry)
-}
+  );
+  return extractPost(entry);
+};
 
 export const getAllPosts = async (): Promise<NewsletterPost[]> => {
   const entries = await fetchGraphQL(
@@ -71,13 +69,13 @@ export const getAllPosts = async (): Promise<NewsletterPost[]> => {
         }
       }
     }`,
-  )
-  return extractPostEntries(entries)
-}
+  );
+  return extractPostEntries(entries);
+};
 
-export const getPostAndMorePosts = async(
+export const getPostAndMorePosts = async (
   slug: string,
-): Promise<{post: NewsletterPost, morePosts: NewsletterPost[]}> => {
+): Promise<{ post: NewsletterPost; morePosts: NewsletterPost[] }> => {
   const entry = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug: "${slug}" }, , limit: 1) {
@@ -86,8 +84,7 @@ export const getPostAndMorePosts = async(
         }
       }
     }`,
- 
-  )
+  );
   const entries = await fetchGraphQL(
     `query {
       newsletterPostCollection(where: { slug_not_in: "${slug}" }, order: date_DESC, limit: 2) {
@@ -96,10 +93,9 @@ export const getPostAndMorePosts = async(
         }
       }
     }`,
-
-  )
+  );
   return {
     post: extractPost(entry),
     morePosts: extractPostEntries(entries),
-  }
-}
+  };
+};

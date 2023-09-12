@@ -1,6 +1,7 @@
-import Link from 'next/link'
-import DateComponent from './date'
-import CoverImage from './cover-image'
+import Link from 'next/link';
+import DateComponent from './date';
+import CoverImage from './cover-image';
+import { NewsletterPost } from './services/graphql/types';
 
 function PostPreview({
   title,
@@ -10,12 +11,12 @@ function PostPreview({
   author,
   slug,
 }: {
-  title: string
-  coverImage: any
-  date: string
-  excerpt: string
-  author: any
-  slug: string
+  title: string;
+  coverImage: any;
+  date: string;
+  excerpt: string;
+  author: any;
+  slug: string;
 }) {
   return (
     <div>
@@ -32,10 +33,10 @@ function PostPreview({
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
     </div>
-  )
+  );
 }
 
-export default function MoreStories({ morePosts }: { morePosts: any[] }) {
+export default function MoreStories({ morePosts }: { morePosts: NewsletterPost[] }) {
   return (
     <section>
       <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
@@ -45,15 +46,15 @@ export default function MoreStories({ morePosts }: { morePosts: any[] }) {
         {morePosts?.map((post) => (
           <PostPreview
             key={post.slug}
-            title={post.title}
+            title={post?.title || ''}
             coverImage={post.picture}
             date={post.date}
             author={post.author}
-            slug={post.slug}
-            excerpt={post.excerpt}
+            slug={post.slug || ''}
+            excerpt={post.previewText || ''}
           />
         ))}
       </div>
     </section>
-  )
+  );
 }
