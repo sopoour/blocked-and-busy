@@ -5,6 +5,9 @@ const theme = {
   bg: {
     soft: '#FDFBF3',
   },
+  fg: {
+    default: '#151203',
+  },
 };
 
 export default theme;

@@ -1,4 +1,4 @@
-import { NewsletterPost } from '@app/src/services/graphql/types';
+import { GeneralContent, NewsletterPost } from '@app/src/services/graphql/types';
 
 const POST_GRAPHQL_FIELDS = `
   slug
@@ -98,4 +98,30 @@ export const getPostAndMorePosts = async (
     post: extractPost(entry),
     morePosts: extractPostEntries(entries),
   };
+};
+
+export const getGeneralContent = async (): Promise<GeneralContent> => {
+  const entries = await fetchGraphQL(
+    `query {
+      generalContent(id: "1C7fR23aEiuYiiUQR5ABBp") {
+          pageDescription
+          about {
+            json
+            links {
+              assets {
+                block {
+                  sys {
+                    id
+                  }
+                  url
+                  description
+                }
+              }
+            }
+          }
+      }
+    }`,
+  );
+
+  return entries?.data?.generalContent;
 };

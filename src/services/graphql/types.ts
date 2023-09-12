@@ -294,10 +294,17 @@ export enum EntryOrder {
 /** Other content than newsletter cards [See type definition](https://app.contentful.com/spaces/9j7f50zp5tnd/content_types/generalContent) */
 export type GeneralContent = Entry & {
   __typename?: 'GeneralContent';
+  about?: Maybe<GeneralContentAbout>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<GeneralContentLinkingCollections>;
   pageDescription?: Maybe<Scalars['String']['output']>;
   sys: Sys;
+};
+
+
+/** Other content than newsletter cards [See type definition](https://app.contentful.com/spaces/9j7f50zp5tnd/content_types/generalContent) */
+export type GeneralContentAboutArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -312,6 +319,37 @@ export type GeneralContentPageDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GeneralContentAbout = {
+  __typename?: 'GeneralContentAbout';
+  json: Scalars['JSON']['output'];
+  links: GeneralContentAboutLinks;
+};
+
+export type GeneralContentAboutAssets = {
+  __typename?: 'GeneralContentAboutAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type GeneralContentAboutEntries = {
+  __typename?: 'GeneralContentAboutEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type GeneralContentAboutLinks = {
+  __typename?: 'GeneralContentAboutLinks';
+  assets: GeneralContentAboutAssets;
+  entries: GeneralContentAboutEntries;
+  resources: GeneralContentAboutResources;
+};
+
+export type GeneralContentAboutResources = {
+  __typename?: 'GeneralContentAboutResources';
+  block: Array<ResourceLink>;
+};
+
 export type GeneralContentCollection = {
   __typename?: 'GeneralContentCollection';
   items: Array<Maybe<GeneralContent>>;
@@ -323,6 +361,9 @@ export type GeneralContentCollection = {
 export type GeneralContentFilter = {
   AND?: InputMaybe<Array<InputMaybe<GeneralContentFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<GeneralContentFilter>>>;
+  about_contains?: InputMaybe<Scalars['String']['input']>;
+  about_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  about_not_contains?: InputMaybe<Scalars['String']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   pageDescription?: InputMaybe<Scalars['String']['input']>;
   pageDescription_contains?: InputMaybe<Scalars['String']['input']>;

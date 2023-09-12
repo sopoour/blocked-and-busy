@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import MoreStories from '../../../more-stories';
 import Date from '../../../date';
-import CoverImage from '../../../cover-image';
+import CoverImage from '../../../components/CoverImage';
 
 import { Markdown } from '@app/src/lib/markdown';
 import { getPostAndMorePosts } from '@app/src/lib/api';

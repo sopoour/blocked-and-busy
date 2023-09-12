@@ -6,14 +6,14 @@ const FooterWrapper = styled.footer`
   width: 100%;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 64px;
   background-color: black;
   color: white;
 `;
 
 const FooterType = styled.p`
   color: white;
-  font-size: 22px;
+  font-size: 16px;
   text-transform: uppercase;
 `;
 

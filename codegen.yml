@@ -1,8 +1,14 @@
 overwrite: true
 schema: ${CONTENTFUL_GRAPHQL_ENDPOINT}
-documents: 'src/services/graphql/**/!(types).ts'
 generates:
-  ./app/services/graphql/types.ts:
+  ./src/services/graphql/types.ts:
+    config:
+        scalars:
+          backgroundColour: {
+            id: string,
+            name: string,
+            value: string
+          }
     plugins:
       - typescript
       - typescript-operations

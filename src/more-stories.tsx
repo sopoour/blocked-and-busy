@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import DateComponent from './date';
-import CoverImage from './cover-image';
+import CoverImage from './components/CoverImage';
 import { NewsletterPost } from './services/graphql/types';
 
 function PostPreview({
