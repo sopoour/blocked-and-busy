@@ -10,9 +10,7 @@ const HeaderWrapper = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: linear-gradient(90deg, #cafffc 20.76%, #fecaff 74.26%);
-
-  background-blend-mode: multiply;
+  background-color: grey;
 `;
 
 const Header: React.FC = () => <HeaderWrapper></HeaderWrapper>;

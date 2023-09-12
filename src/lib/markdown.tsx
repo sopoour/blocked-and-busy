@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { Asset, Maybe, NewsletterPostMainContent } from '@/src/services/graphql/types';
+import { Asset, Maybe, NewsletterPostMainContent } from '@app/src/services/graphql/types';
 
 const RichTextAsset = ({ id, assets }: { id: string; assets: Maybe<Asset>[] }) => {
   const asset = assets?.find((asset) => asset?.sys.id === id);

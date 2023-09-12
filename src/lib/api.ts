@@ -1,4 +1,4 @@
-import { NewsletterPost } from '@/src/services/graphql/types';
+import { NewsletterPost } from '@app/src/services/graphql/types';
 
 const POST_GRAPHQL_FIELDS = `
   slug

@@ -1,21 +1,28 @@
 import { getAllPosts } from '@app/src/lib/api';
-import { NextPage } from 'next';
+import { GetServerSideProps, GetStaticPaths, NextPage } from 'next';
 import MoreStories from '../more-stories';
-import { FC, useEffect, useState } from 'react';
 import { NewsletterPost } from '../services/graphql/types';
 
-const Page: NextPage = () => {
-  const [posts, setPosts] = useState<NewsletterPost[]>([]);
+type Props = {
+  posts: NewsletterPost[];
+};
 
-  useEffect(() => {
-    getAllPosts().then((response: NewsletterPost[]) => setPosts(response));
-  }, []);
-
+const Page: NextPage<Props> = ({ posts }) => {
   return (
     <div className="container mx-auto px-5">
       <MoreStories morePosts={posts} />
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const posts = await getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
 };
 
 export default Page;

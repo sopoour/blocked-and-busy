@@ -1,23 +1,20 @@
 import Link from 'next/link';
 
-import MoreStories from '../../more-stories';
-import Date from '../../date';
-import CoverImage from '../../cover-image';
+import MoreStories from '../../../more-stories';
+import Date from '../../../date';
+import CoverImage from '../../../cover-image';
 
-import { Markdown } from '@/src/lib/markdown';
-import { getAllPosts, getPostAndMorePosts } from '@/src/lib/api';
+import { Markdown } from '@app/src/lib/markdown';
+import { getPostAndMorePosts } from '@app/src/lib/api';
+import { GetServerSideProps, NextPage } from 'next';
+import { NewsletterPost } from '@app/src/services/graphql/types';
 
-export async function generateStaticParams() {
-  const allPosts = await getAllPosts();
+type Props = {
+  post: NewsletterPost;
+  morePosts: NewsletterPost[];
+};
 
-  return allPosts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { post, morePosts } = await getPostAndMorePosts(params.slug);
-
+const PostPage: NextPage<Props> = ({ post, morePosts }) => {
   return (
     <div className="container mx-auto px-5">
       <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8">
@@ -53,4 +50,17 @@ export default async function PostPage({ params }: { params: { slug: string } })
       <MoreStories morePosts={morePosts} />
     </div>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
+  const { post, morePosts } = await getPostAndMorePosts(params?.slug as string);
+
+  return {
+    props: {
+      post,
+      morePosts,
+    },
+  };
+};
+
+export default PostPage;
