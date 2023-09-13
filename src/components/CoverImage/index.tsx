@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import ContentfulImage from '../../lib/contentful-image';
+import ContentfulImage from '../../../lib/contentful-image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { Maybe } from 'graphql/jsutils/Maybe';

@@ -4,8 +4,8 @@ import MoreStories from '../../../more-stories';
 import Date from '../../../date';
 import CoverImage from '../../../components/CoverImage';
 
-import { Markdown } from '@app/src/lib/markdown';
-import { getPostAndMorePosts } from '@app/src/lib/api';
+import { Markdown } from '@app/lib/markdown';
+import { getPostAndMorePosts } from '@app/lib/api';
 import { GetServerSideProps, NextPage } from 'next';
 import { NewsletterPost } from '@app/src/services/graphql/types';
 
