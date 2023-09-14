@@ -4,7 +4,9 @@ type TextAlign = 'center' | 'start' | 'end';
 
 type FontWeight = 400 | 500 | 600 | 700 | 900;
 
-export interface Props {
+type WhiteSpace = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces';
+
+export type Props = {
   className?: string;
   fontSize?: string;
   fontSizeSm?: string;
@@ -13,20 +15,20 @@ export interface Props {
   textalign?: TextAlign;
   fontWeight?: FontWeight;
   color?: string;
-  whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces';
+  whiteSpace?: WhiteSpace;
   $isUpperCase?: boolean;
-}
+};
 
 const Typography = styled.p<Props>`
   margin: 0;
-  font-size: ${(props) => props.fontSize || '16px'};
-  font-family: ${(props) => props.type};
-  line-height: ${(props) => props.lineHeight || '1.5'};
-  text-align: ${(props) => props.textalign || 'start'};
-  font-weight: ${(props) => props.fontWeight || 700};
-  color: ${(props) => props.color || props.theme.fg.default};
-  white-space: ${(props) => props.whiteSpace || 'pre-wrap'};
-  text-transform: ${(props) => (props.$isUpperCase ? 'uppercase' : 'none')};
+  font-size: ${({ fontSize }) => fontSize || '16px'};
+  font-family: ${({ type }) => type};
+  line-height: ${({ lineHeight }) => lineHeight || '1.5'};
+  text-align: ${({ textalign }) => textalign || 'start'};
+  font-weight: ${({ fontWeight }) => fontWeight || 700};
+  color: ${({ color, theme }) => color || theme.fg.default};
+  white-space: ${({ whiteSpace }) => whiteSpace || 'pre-wrap'};
+  text-transform: ${({ $isUpperCase }) => ($isUpperCase ? 'uppercase' : 'none')};
 `;
 
 export default Typography;

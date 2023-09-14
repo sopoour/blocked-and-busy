@@ -1,8 +1,11 @@
 import { NewsletterPost } from '@app/src/services/graphql/types';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import Typography from '../Typography/Typography';
 import CoverImage from '../CoverImage';
+import Sidebar from '../Sidebar/Sidebar';
+import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
+import { useRouter } from 'next/router';
 
 export const Card = styled.div<{ background?: string; stack: number }>`
   display: flex;
@@ -15,12 +18,19 @@ export const Card = styled.div<{ background?: string; stack: number }>`
   margin-bottom: -100px;
   width: 100%;
   z-index: ${({ stack }) => `calc(2 - ${stack})`};
-  transition: 0.4s ease-out;
-  position: relative;
-  left: 0px;
+
+  &:hover {
+    transition: 0.4s all ease-in-out;
+    transform: translateY(-25px);
+    cursor: pointer;
+  }
 
   ${({ theme }) => theme.media('sm')`
+    transition: 0.4s ease-out;
+    position: relative;
+    left: 0px;
     margin-right: -150px;
+    margin-bottom: unset;
     max-width: 320px;
     min-height: 400px;
   `}
@@ -45,22 +55,44 @@ const PreviewText = styled(Typography)`
   `}
 `;
 
+const DetailContainer = styled.div`
+  padding: 0 20px;
+`;
+
 type Props = {
   post: NewsletterPost;
   stack: number;
 };
 
 const NewsletterCard: FC<Props> = ({ post, stack }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const router = useRouter();
   return (
-    <Card background={post.backgroundColour.value} stack={stack}>
-      <Header>
-        <Typography $isUpperCase textalign="center">
-          {post.title}
-        </Typography>
-        <CoverImage title={post.title || ''} url={post.picture?.url} />
-      </Header>
-      <PreviewText fontWeight={400}>{post.previewText}</PreviewText>
-    </Card>
+    <>
+      <Card
+        background={post.backgroundColour.value}
+        stack={stack}
+        onClick={() => router.push(`/?slug=${post.slug}`)}
+      >
+        <Header>
+          <Typography $isUpperCase textalign="center">
+            {post.title}
+          </Typography>
+          <CoverImage title={post.title || ''} url={post.picture?.url} />
+        </Header>
+        <PreviewText fontWeight={400}>{post.previewText}</PreviewText>
+      </Card>
+      <Sidebar
+        side="left"
+        open={open}
+        onClose={() => setOpen(false)}
+        backgroundColor={post.backgroundColour.value}
+      >
+        <DetailContainer>
+          <MarkdownConfig content={post.mainContent as string} />
+        </DetailContainer>
+      </Sidebar>
+    </>
   );
 };
 

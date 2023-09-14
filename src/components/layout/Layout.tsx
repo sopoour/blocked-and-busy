@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import Header from './Header/Header';
 import { styled } from 'styled-components';
 import Footer from './Footer';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Root = styled.div`
   min-height: 100vh;

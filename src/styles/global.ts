@@ -57,6 +57,11 @@ button {
   cursor: pointer;
 }
 
+p {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
 button::-moz-focus-inner {
   border: 0;
   padding: 0;
