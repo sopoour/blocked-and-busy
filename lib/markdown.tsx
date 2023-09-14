@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { Asset, Maybe, NewsletterPostMainContent } from '@app/src/services/graphql/types';
+import {
+  Asset,
+  GeneralContentAbout,
+  Maybe,
+  NewsletterPostMainContent,
+} from '@app/src/services/graphql/types';
 
 const RichTextAsset = ({ id, assets }: { id: string; assets: Maybe<Asset>[] }) => {
   const asset = assets?.find((asset) => asset?.sys.id === id);
@@ -13,7 +18,11 @@ const RichTextAsset = ({ id, assets }: { id: string; assets: Maybe<Asset>[] }) =
   return null;
 };
 
-export function Markdown({ content }: { content: NewsletterPostMainContent }) {
+export function Markdown({
+  content,
+}: {
+  content: NewsletterPostMainContent | GeneralContentAbout;
+}) {
   return documentToReactComponents(content?.json, {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node: any) => (

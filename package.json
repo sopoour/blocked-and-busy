@@ -9,6 +9,10 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.17.1",
     "@contentful/rich-text-types": "^16.2.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.9",
+    "@mui/styled-engine-sc": "^5.14.9",
     "@netlify/plugin-nextjs": "^4.40.1",
     "@svgr/webpack": "^8.1.0",
     "autoprefixer": "10.4.15",
