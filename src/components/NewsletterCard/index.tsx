@@ -19,12 +19,6 @@ export const Card = styled.div<{ background?: string; stack: number }>`
   width: 100%;
   z-index: ${({ stack }) => `calc(2 - ${stack})`};
 
-  &:hover {
-    transition: 0.4s all ease-in-out;
-    transform: translateY(-25px);
-    cursor: pointer;
-  }
-
   ${({ theme }) => theme.media('sm')`
     transition: 0.4s ease-out;
     position: relative;
@@ -33,6 +27,11 @@ export const Card = styled.div<{ background?: string; stack: number }>`
     margin-bottom: unset;
     max-width: 320px;
     min-height: 400px;
+    &:hover {
+    transition: 0.4s all ease-in-out;
+    transform: translateY(-25px);
+    cursor: pointer;
+  }
   `}
 `;
 

@@ -40,6 +40,7 @@ const Sidebar: FC<Props> = ({
         style: {
           backgroundColor: 'rgba(253, 251, 243, 0.4)',
           backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
         },
       }}
     >
