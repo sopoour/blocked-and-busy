@@ -26,7 +26,7 @@ const Typography = styled.p<Props>`
   line-height: ${({ lineHeight }) => lineHeight || '1.5'};
   text-align: ${({ textalign }) => textalign || 'start'};
   font-weight: ${({ fontWeight }) => fontWeight || 700};
-  color: ${({ color, theme }) => color || theme.fg.default};
+  color: ${({ color, theme }) => color || theme.colors.fg.default};
   white-space: ${({ whiteSpace }) => whiteSpace || 'pre-wrap'};
   text-transform: ${({ $isUpperCase }) => ($isUpperCase ? 'uppercase' : 'none')};
 `;

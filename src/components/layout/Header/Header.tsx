@@ -13,11 +13,22 @@ const HeaderWrapper = styled.nav`
   top: 0;
   z-index: 1000;
   min-height: 64px;
-  padding: 16px 40px;
+  padding: 8px 20px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.bg.soft};
+
+  ${({ theme }) => theme.media('sm')`
+    padding: 16px 40px;
+  `}
+`;
+
+const DesktopOnly = styled.div`
+  display: none;
+  ${({ theme }) => theme.media('sm')`
+    display: block
+  `}
 `;
 
 const AboutContainer = styled.div`
@@ -31,7 +42,7 @@ const Header: React.FC = () => {
   return (
     <>
       <HeaderWrapper>
-        <div />
+        <DesktopOnly />
         <Logo />
         <button
           style={{ fontSize: '16px', fontWeight: '700' }}

@@ -33,7 +33,7 @@ const Sidebar: FC<Props> = ({
         sx: {
           backgroundColor: backgroundColor,
           width: isDesktop ? '50%' : '100%',
-          height: isDesktop ? '100%' : '50%',
+          height: isDesktop ? '100%' : '80%',
         },
       }}
       BackdropProps={{
