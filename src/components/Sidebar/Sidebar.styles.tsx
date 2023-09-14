@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import Close from './close.svg';
 
-export const Header = styled.div<{ background?: string }>`
+export const Header = styled.div<{ background?: string; side: 'left' | 'right' }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -9,15 +8,15 @@ export const Header = styled.div<{ background?: string }>`
   top: 0;
   left: 0;
   z-index: 5;
-  justify-content: space-between;
+  justify-content: ${({ side }) => (side === 'left' ? 'flex-end' : 'flex-start')};
   background-color: ${({ background }) => background};
   padding: 16px 20px;
 `;
 
-export const CloseButton = styled(Close)<{ side: 'left' | 'right' }>`
-  display: flex;
-  align-self: ${({ side }) => (side === 'left' ? 'flex-start' : 'flex-end')};
-  :hover {
+export const CloseButton = styled.button<{ side: 'left' | 'right' }>`
+  padding: 8px;
+  &:hover {
     cursor: pointer;
+    opacity: 0.6;
   }
 `;

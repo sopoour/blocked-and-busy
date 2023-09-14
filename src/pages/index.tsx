@@ -10,29 +10,30 @@ import { fetcher } from '../hooks/fetch/useFetch';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import MarkdownConfig from '../components/MarkdownConfig';
+import MarkdownConfig from '../components/MarkdownConfig/MarkdownConfig';
 
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 48px 0;
+  padding: 20px 0 32px 0;
+
+  ${({ theme }) => theme.media('sm')`
+    padding: 30px 0 48px 0;
+  `}
 `;
 
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 48px;
   height: 100%;
+
+  ${Card}:last-of-type {
+    margin-bottom: unset;
+  }
+
   ${({ theme }) => theme.media('sm')`
     flex-direction: row;
-
-    ${Card}:hover {
-      transition: 0.4s all ease-in-out;
-      transform: translateY(-25px);
-      cursor: pointer;
-    }
-
     ${Card}:not(:first-of-type):hover {
       transform: translate(160px, -25px);
     }
@@ -50,7 +51,6 @@ const TopWrapper = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 20px 0;
 `;
 
 const DetailContainer = styled.div`

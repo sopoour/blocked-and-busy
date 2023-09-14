@@ -3,6 +3,7 @@ import { CloseButton, Header } from './Sidebar.styles';
 import { useMedia } from '@app/src/hooks/useMedia';
 import { Breakpoints } from '@app/src/styles/media';
 import { Drawer } from '@mui/material';
+import Close from './close.svg';
 
 type Props = {
   side: 'left' | 'right';
@@ -42,8 +43,10 @@ const Sidebar: FC<Props> = ({
         },
       }}
     >
-      <Header background={backgroundColor}>
-        <CloseButton side={side} onClick={onClose} />
+      <Header background={backgroundColor} side={side}>
+        <CloseButton side={side} onClick={onClose}>
+          <Close />
+        </CloseButton>
       </Header>
       {children}
     </Drawer>

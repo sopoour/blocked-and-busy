@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import Typography from '../Typography/Typography';
 import CoverImage from '../CoverImage';
 import Sidebar from '../Sidebar/Sidebar';
-import MarkdownConfig from '../MarkdownConfig';
+import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
 import { useRouter } from 'next/router';
 
 export const Card = styled.div<{ background?: string; stack: number }>`
@@ -18,12 +18,19 @@ export const Card = styled.div<{ background?: string; stack: number }>`
   margin-bottom: -100px;
   width: 100%;
   z-index: ${({ stack }) => `calc(2 - ${stack})`};
-  transition: 0.4s ease-out;
-  position: relative;
-  left: 0px;
+
+  &:hover {
+    transition: 0.4s all ease-in-out;
+    transform: translateY(-25px);
+    cursor: pointer;
+  }
 
   ${({ theme }) => theme.media('sm')`
+    transition: 0.4s ease-out;
+    position: relative;
+    left: 0px;
     margin-right: -150px;
+    margin-bottom: unset;
     max-width: 320px;
     min-height: 400px;
   `}

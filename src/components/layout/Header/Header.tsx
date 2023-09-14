@@ -5,7 +5,7 @@ import { styled } from 'styled-components';
 import Sidebar from '../../Sidebar/Sidebar';
 import { GeneralContent } from '@app/src/services/graphql/types';
 import { fetcher } from '@app/src/hooks/fetch/useFetch';
-import MarkdownConfig from '../../MarkdownConfig';
+import MarkdownConfig from '../../MarkdownConfig/MarkdownConfig';
 
 const HeaderWrapper = styled.nav`
   display: flex;

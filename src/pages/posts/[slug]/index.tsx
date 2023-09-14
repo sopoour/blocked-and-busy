@@ -1,4 +1,4 @@
-import MarkdownConfig from '@app/src/components/MarkdownConfig';
+import MarkdownConfig from '@app/src/components/MarkdownConfig/MarkdownConfig';
 import { NextPage } from 'next';
 import { NewsletterPost } from '@app/src/services/graphql/types';
 import Sidebar from '@app/src/components/Sidebar/Sidebar';
