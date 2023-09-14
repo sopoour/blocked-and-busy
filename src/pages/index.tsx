@@ -1,11 +1,16 @@
-import { getAllPosts, getGeneralContent } from '@app/lib/api';
-import { GetServerSideProps, NextPage } from 'next';
-import { Maybe, NewsletterPost } from '../services/graphql/types';
+import { NextPage } from 'next';
+import { GeneralContent, NewsletterPost } from '../services/graphql/types';
+import useSWR from 'swr';
 import Typography from '../components/Typography/Typography';
 import { styled } from 'styled-components';
 import NewsletterCard, { Card } from '../components/NewsletterCard';
 import MaxWidthContainer from '../components/MaxWidthContainer';
 import SignupForm from '../components/SignupForm';
+import { fetcher } from '../hooks/fetch/useFetch';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import MarkdownConfig from '../components/MarkdownConfig';
 
 const Root = styled.div`
   display: flex;
@@ -48,12 +53,33 @@ const TopWrapper = styled(MaxWidthContainer)`
   padding: 20px 0;
 `;
 
-type Props = {
-  posts: NewsletterPost[];
-  description?: Maybe<string>;
-};
+const DetailContainer = styled.div`
+  padding: 0 20px;
+`;
 
-const Page: NextPage<Props> = ({ posts, description }) => {
+const Page: NextPage = () => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [linkedPost, setLinkedPost] = useState<NewsletterPost>();
+  const { data, isLoading } = useSWR<NewsletterPost[] | null>('/api/posts', fetcher);
+  const router = useRouter();
+  const { slug } = router.query;
+  const { data: descriptionData } = useSWR<GeneralContent | null>('/api/general', fetcher);
+  const description = descriptionData?.pageDescription;
+
+  useEffect(() => {
+    if (
+      typeof slug === 'string' &&
+      data &&
+      !isLoading &&
+      !!data?.find((newsletter) => newsletter.slug === slug)
+    ) {
+      setOpen(true);
+      setLinkedPost(data?.find((newsletter) => newsletter.slug === slug));
+      delete router.query.slug;
+      router.replace(router, undefined, { shallow: true });
+    }
+  }, [slug, isLoading, data]);
+
   return (
     <Root>
       <TopWrapper>
@@ -61,24 +87,20 @@ const Page: NextPage<Props> = ({ posts, description }) => {
         <SignupForm />
       </TopWrapper>
       <CardWrapper>
-        {posts.map((post, index) => (
-          <NewsletterCard post={post} stack={index} />
-        ))}
+        {data?.map((post, index) => <NewsletterCard post={post} stack={index} key={post.slug} />)}
       </CardWrapper>
+      <Sidebar
+        side="left"
+        open={open}
+        onClose={() => setOpen(false)}
+        backgroundColor={linkedPost?.backgroundColour.value}
+      >
+        <DetailContainer>
+          <MarkdownConfig content={linkedPost?.mainContent as string} />
+        </DetailContainer>
+      </Sidebar>
     </Root>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const posts = await getAllPosts();
-  const description = await getGeneralContent();
-
-  return {
-    props: {
-      posts,
-      description: description?.pageDescription,
-    },
-  };
 };
 
 export default Page;

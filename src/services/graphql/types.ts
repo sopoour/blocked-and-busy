@@ -294,7 +294,7 @@ export enum EntryOrder {
 /** Other content than newsletter cards [See type definition](https://app.contentful.com/spaces/9j7f50zp5tnd/content_types/generalContent) */
 export type GeneralContent = Entry & {
   __typename?: 'GeneralContent';
-  about?: Maybe<GeneralContentAbout>;
+  about?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<GeneralContentLinkingCollections>;
   pageDescription?: Maybe<Scalars['String']['output']>;
@@ -319,37 +319,6 @@ export type GeneralContentPageDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type GeneralContentAbout = {
-  __typename?: 'GeneralContentAbout';
-  json: Scalars['JSON']['output'];
-  links: GeneralContentAboutLinks;
-};
-
-export type GeneralContentAboutAssets = {
-  __typename?: 'GeneralContentAboutAssets';
-  block: Array<Maybe<Asset>>;
-  hyperlink: Array<Maybe<Asset>>;
-};
-
-export type GeneralContentAboutEntries = {
-  __typename?: 'GeneralContentAboutEntries';
-  block: Array<Maybe<Entry>>;
-  hyperlink: Array<Maybe<Entry>>;
-  inline: Array<Maybe<Entry>>;
-};
-
-export type GeneralContentAboutLinks = {
-  __typename?: 'GeneralContentAboutLinks';
-  assets: GeneralContentAboutAssets;
-  entries: GeneralContentAboutEntries;
-  resources: GeneralContentAboutResources;
-};
-
-export type GeneralContentAboutResources = {
-  __typename?: 'GeneralContentAboutResources';
-  block: Array<ResourceLink>;
-};
-
 export type GeneralContentCollection = {
   __typename?: 'GeneralContentCollection';
   items: Array<Maybe<GeneralContent>>;
@@ -361,9 +330,13 @@ export type GeneralContentCollection = {
 export type GeneralContentFilter = {
   AND?: InputMaybe<Array<InputMaybe<GeneralContentFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<GeneralContentFilter>>>;
+  about?: InputMaybe<Scalars['String']['input']>;
   about_contains?: InputMaybe<Scalars['String']['input']>;
   about_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  about_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  about_not?: InputMaybe<Scalars['String']['input']>;
   about_not_contains?: InputMaybe<Scalars['String']['input']>;
+  about_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   pageDescription?: InputMaybe<Scalars['String']['input']>;
   pageDescription_contains?: InputMaybe<Scalars['String']['input']>;
@@ -503,7 +476,7 @@ export type NewsletterPost = Entry & {
   date?: Maybe<Scalars['DateTime']['output']>;
   linkedFrom?: Maybe<NewsletterPostLinkingCollections>;
   longTitle?: Maybe<Scalars['String']['output']>;
-  mainContent?: Maybe<NewsletterPostMainContent>;
+  mainContent?: Maybe<Scalars['String']['output']>;
   picture?: Maybe<Asset>;
   previewText?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
@@ -608,9 +581,13 @@ export type NewsletterPostFilter = {
   longTitle_not?: InputMaybe<Scalars['String']['input']>;
   longTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
   longTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  mainContent?: InputMaybe<Scalars['String']['input']>;
   mainContent_contains?: InputMaybe<Scalars['String']['input']>;
   mainContent_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  mainContent_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  mainContent_not?: InputMaybe<Scalars['String']['input']>;
   mainContent_not_contains?: InputMaybe<Scalars['String']['input']>;
+  mainContent_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   picture_exists?: InputMaybe<Scalars['Boolean']['input']>;
   previewText?: InputMaybe<Scalars['String']['input']>;
   previewText_contains?: InputMaybe<Scalars['String']['input']>;
@@ -647,37 +624,6 @@ export type NewsletterPostLinkingCollectionsEntryCollectionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type NewsletterPostMainContent = {
-  __typename?: 'NewsletterPostMainContent';
-  json: Scalars['JSON']['output'];
-  links: NewsletterPostMainContentLinks;
-};
-
-export type NewsletterPostMainContentAssets = {
-  __typename?: 'NewsletterPostMainContentAssets';
-  block: Array<Maybe<Asset>>;
-  hyperlink: Array<Maybe<Asset>>;
-};
-
-export type NewsletterPostMainContentEntries = {
-  __typename?: 'NewsletterPostMainContentEntries';
-  block: Array<Maybe<Entry>>;
-  hyperlink: Array<Maybe<Entry>>;
-  inline: Array<Maybe<Entry>>;
-};
-
-export type NewsletterPostMainContentLinks = {
-  __typename?: 'NewsletterPostMainContentLinks';
-  assets: NewsletterPostMainContentAssets;
-  entries: NewsletterPostMainContentEntries;
-  resources: NewsletterPostMainContentResources;
-};
-
-export type NewsletterPostMainContentResources = {
-  __typename?: 'NewsletterPostMainContentResources';
-  block: Array<ResourceLink>;
 };
 
 export enum NewsletterPostOrder {
@@ -771,18 +717,6 @@ export type QueryNewsletterPostCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<NewsletterPostFilter>;
-};
-
-export type ResourceLink = {
-  __typename?: 'ResourceLink';
-  sys: ResourceSys;
-};
-
-export type ResourceSys = {
-  __typename?: 'ResourceSys';
-  linkType: Scalars['String']['output'];
-  type: Scalars['String']['output'];
-  urn: Scalars['String']['output'];
 };
 
 export type Sys = {

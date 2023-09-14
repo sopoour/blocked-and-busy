@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useSWR from 'swr';
 import Logo from './logo_blocked.svg';
 import { styled } from 'styled-components';
 import Sidebar from '../../Sidebar/Sidebar';
-import { getGeneralContent } from '@app/lib/api';
-import { Markdown } from '@app/lib/markdown';
-import { GeneralContent, GeneralContentAbout, Maybe } from '@app/src/services/graphql/types';
+import { GeneralContent } from '@app/src/services/graphql/types';
+import { fetcher } from '@app/src/hooks/fetch/useFetch';
+import MarkdownConfig from '../../MarkdownConfig';
 
 const HeaderWrapper = styled.nav`
   display: flex;
@@ -12,7 +13,7 @@ const HeaderWrapper = styled.nav`
   top: 0;
   z-index: 1000;
   min-height: 64px;
-  padding: 0 40px;
+  padding: 16px 40px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -24,28 +25,27 @@ const AboutContainer = styled.div`
 `;
 
 const Header: React.FC = () => {
-  const [about, setAbout] = useState<Maybe<GeneralContentAbout>>();
   const [open, setOpen] = useState<boolean>(false);
+  const { data } = useSWR<GeneralContent | null>('/api/general', fetcher);
 
-  useEffect(() => {
-    getGeneralContent().then((response) => setAbout(response?.about));
-  }, []);
   return (
-    <HeaderWrapper>
-      <div />
-      <Logo />
-      <button
-        style={{ fontSize: '16px', fontWeight: '700' }}
-        onClick={() => setOpen((prev) => !prev)}
-      >
-        ABOUT
-      </button>
+    <>
+      <HeaderWrapper>
+        <div />
+        <Logo />
+        <button
+          style={{ fontSize: '16px', fontWeight: '700' }}
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          ABOUT
+        </button>
+      </HeaderWrapper>
       <Sidebar side="right" open={open} onClose={() => setOpen(false)}>
         <AboutContainer>
-          <Markdown content={about as GeneralContentAbout} />
+          <MarkdownConfig content={data?.about as string} />
         </AboutContainer>
       </Sidebar>
-    </HeaderWrapper>
+    </>
   );
 };
 
