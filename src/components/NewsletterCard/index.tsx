@@ -6,8 +6,9 @@ import CoverImage from '../CoverImage';
 import Sidebar from '../Sidebar/Sidebar';
 import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-export const Card = styled.div<{ background?: string; stack: number }>`
+export const Card = styled(Link)<{ background?: string; stack: number }>`
   display: flex;
   padding: 20px 10px;
   flex-direction: column;
@@ -71,7 +72,8 @@ const NewsletterCard: FC<Props> = ({ post, stack }) => {
       <Card
         background={post.backgroundColour.value}
         stack={stack}
-        onClick={() => router.push(`/?slug=${post.slug}`)}
+        scroll={false}
+        href={`/?slug=${post.slug}`}
       >
         <Header>
           <Typography $isUpperCase textalign="center">
