@@ -1,6 +1,6 @@
 import { NewsletterPost } from '@app/src/services/graphql/types';
 import { FC, useState } from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import Typography from '../Typography/Typography';
 import CoverImage from '../CoverImage';
 import Sidebar from '../Sidebar/Sidebar';
@@ -8,7 +8,7 @@ import MarkdownConfig from '../MarkdownConfig/MarkdownConfig';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export const Card = styled(Link)<{ background?: string; stack: number }>`
+export const Card = styled(Link)<{ background?: string; stack: number; $isActive: boolean }>`
   display: flex;
   padding: 20px 10px;
   flex-direction: column;
@@ -16,23 +16,40 @@ export const Card = styled(Link)<{ background?: string; stack: number }>`
   flex-shrink: 0;
   border-radius: 10px;
   background-color: ${({ background }) => background || '#F6F092'};
-  margin-bottom: -100px;
+  left: 0px;
+  margin-right: -150px;
   width: 100%;
+  min-height: 350px;
+  max-width: 250px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-right: 150px;
   z-index: ${({ stack }) => `calc(2 - ${stack})`};
+
+  ${({ $isActive, stack }) =>
+    $isActive &&
+    css`
+      z-index: ${`calc(2 - ${stack} + 5)`} !important;
+      transition: all 0.1s ease-in-out;
+      -webkit-filter: brightness(1);
+      filter: brightness(1);
+
+      & ~ a {
+        -webkit-filter: brightness(0.7);
+        filter: brightness(0.7);
+      }
+    `}
 
   ${({ theme }) => theme.media('sm')`
     transition: 0.4s ease-out;
     position: relative;
-    left: 0px;
-    margin-right: -150px;
-    margin-bottom: unset;
     max-width: 320px;
     min-height: 400px;
+    
     &:hover {
-    transition: 0.4s all ease-in-out;
-    transform: translateY(-25px);
-    cursor: pointer;
-  }
+      transition: 0.4s all ease-in-out;
+      cursor: pointer;
+    }
   `}
 `;
 
@@ -62,9 +79,10 @@ const DetailContainer = styled.div`
 type Props = {
   post: NewsletterPost;
   stack: number;
+  isActiveCard: boolean;
 };
 
-const NewsletterCard: FC<Props> = ({ post, stack }) => {
+const NewsletterCard: FC<Props> = ({ post, stack, isActiveCard }) => {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   return (
@@ -74,6 +92,7 @@ const NewsletterCard: FC<Props> = ({ post, stack }) => {
         stack={stack}
         scroll={false}
         href={`/?slug=${post.slug}`}
+        $isActive={isActiveCard}
       >
         <Header>
           <Typography $isUpperCase textalign="center">

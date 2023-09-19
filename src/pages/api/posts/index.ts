@@ -5,7 +5,7 @@ export default async function getPosts(req: NextApiRequest, res: NextApiResponse
   try {
     const data = await fetchGraphQL(
       `query {
-            newsletterPostCollection(where: { slug_exists: true }, order: date_ASC, limit: 1000) {
+            newsletterPostCollection(where: { slug_exists: true }, order: date_DESC, limit: 1000) {
               items {
                 ${POST_GRAPHQL_FIELDS}
               }
