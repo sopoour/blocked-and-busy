@@ -93,6 +93,7 @@ const NewsletterCard: FC<Props> = ({ post, stack, isActiveCard }) => {
         scroll={false}
         href={`/?slug=${post.slug}`}
         $isActive={isActiveCard}
+        role="article"
       >
         <Header>
           <Typography $isUpperCase textalign="center">

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { styled } from 'styled-components';
 import Typography from '../Typography/Typography';
 
-const Root = styled.div`
+const Root = styled.form`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -33,10 +33,10 @@ const SubmitButton = styled.button`
 const SignupForm: FC = () => {
   return (
     <Root>
-      <Typography textalign="center" fontWeight={400}>
+      <Typography textalign="center" fontWeight={400} role="label">
         Be a part of the fam{' '}
       </Typography>
-      <InputWrapper>
+      <InputWrapper role="input">
         <Input type="text" placeholder="Email" />
         <SubmitButton>Sign up</SubmitButton>
       </InputWrapper>
