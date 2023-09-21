@@ -7,7 +7,7 @@ import { GeneralContent } from '@app/src/services/graphql/types';
 import { fetcher } from '@app/src/hooks/fetch/useFetch';
 import MarkdownConfig from '../../MarkdownConfig/MarkdownConfig';
 
-const HeaderWrapper = styled.nav`
+const HeaderWrapper = styled.header`
   display: flex;
   position: sticky;
   top: 0;
@@ -24,14 +24,14 @@ const HeaderWrapper = styled.nav`
   `}
 `;
 
-const DesktopOnly = styled.div`
+const DesktopOnly = styled.span`
   display: none;
   ${({ theme }) => theme.media('sm')`
     display: block
   `}
 `;
 
-const AboutContainer = styled.div`
+const AboutContainer = styled.section`
   padding: 0 20px;
 `;
 
@@ -43,16 +43,17 @@ const Header: React.FC = () => {
     <>
       <HeaderWrapper>
         <DesktopOnly />
-        <Logo />
+        <Logo title="Blocked & Busy logo" />
         <button
           style={{ fontSize: '16px', fontWeight: '700' }}
           onClick={() => setOpen((prev) => !prev)}
+          role="navigation"
         >
           ABOUT
         </button>
       </HeaderWrapper>
       <Sidebar side="right" open={open} onClose={() => setOpen(false)}>
-        <AboutContainer>
+        <AboutContainer aria-label="About us description">
           <MarkdownConfig content={data?.about as string} />
         </AboutContainer>
       </Sidebar>

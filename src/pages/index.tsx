@@ -14,7 +14,7 @@ import MarkdownConfig from '../components/MarkdownConfig/MarkdownConfig';
 import { useMedia } from '../hooks/useMedia';
 import { Breakpoints } from '../styles/media';
 
-const Root = styled.div`
+const Root = styled.span`
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -25,7 +25,7 @@ const Root = styled.div`
   `}
 `;
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.section`
   display: flex;
   height: 100%;
   width: 100%;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Header = styled.div<{ background?: string; side: 'left' | 'right' }>`
+export const Header = styled.nav<{ background?: string; side: 'left' | 'right' }>`
   width: 100%;
   display: flex;
   align-items: center;

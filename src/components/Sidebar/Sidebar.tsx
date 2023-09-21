@@ -29,6 +29,8 @@ const Sidebar: FC<Props> = ({
       onClose={onClose}
       anchor={isDesktop ? side : 'bottom'}
       className={className}
+      role="sidebar"
+      aria-label="Sidebar"
       PaperProps={{
         sx: {
           backgroundColor: backgroundColor,
@@ -44,8 +46,8 @@ const Sidebar: FC<Props> = ({
         },
       }}
     >
-      <Header background={backgroundColor} side={side}>
-        <CloseButton side={side} onClick={onClose}>
+      <Header background={backgroundColor} side={side} aria-label="Header of sidebar">
+        <CloseButton side={side} onClick={onClose} aria-label="Button to close the sidebar">
           <Close />
         </CloseButton>
       </Header>
